@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #game {
+            margin-top: 20px;
+        }
+        #feedback {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        input {
+            padding: 5px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guess the Number!</h1>
+    <p>Guess the number between 1 and 100</p>
+    
+    <div id="game">
+        <input type="number" id="playerGuess" placeholder="Enter your guess" min="1" max="100">
+        <button onclick="checkGuess()">Submit Guess</button>
+    </div>
+
+    <div id="feedback"></div>
+    <button id="resetButton" onclick="resetGame()" style="display:none;">Play Again</button>
+
+    <script>
+        // Initialize game variables
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        // Function to check the player's guess
+        function checkGuess() {
+            const playerGuess = parseInt(document.getElementById("playerGuess").value);
+            const feedback = document.getElementById("feedback");
+
+            if (isNaN(playerGuess) || playerGuess < 1 || playerGuess > 100) {
+                feedback.textContent = "Please enter a valid number between 1 and 100.";
+                return;
+            }
+
+            attempts++;
+
+            if (playerGuess === secretNumber) {
+                feedback.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+                document.getElementById("resetButton").style.display = "block";
+            } else if (playerGuess < secretNumber) {
+                feedback.textContent = "Too low! Try again.";
+            } else if (playerGuess > secretNumber) {
+                feedback.textContent = "Too high! Try again.";
+            }
+
+            // Clear the input field after each guess
+            document.getElementById("playerGuess").value = "";
+        }
+
+        // Function to reset the game
+        function resetGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById("playerGuess").value = "";
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("resetButton").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

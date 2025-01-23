@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click to Move, Change Color, and Timer</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+        canvas {
+            display: block; /* Removes space below canvas */
+        }
+        #timer {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 20px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <div id="timer">Time: 0 ms</div>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // Resize the canvas to fill the entire window
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var radius = 50; // Circle radius
+        var circleX = Math.random() * (canvas.width - 2 * radius) + radius; // Random starting x position
+        var circleY = Math.random() * (canvas.height - 2 * radius) + radius; // Random starting y position
+
+        // Array of colors to cycle through
+        var colors = ["blue", "red", "yellow", "green", "purple", "orange"];
+        var currentColorIndex = 0; // Start with the first color in the array
+
+        var startTime; // Start time for each click
+
+        // Function to draw the circle
+        function drawCircle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.beginPath();
+            ctx.arc(circleX, circleY, radius, 0, 2 * Math.PI); // Draw circle at position (x, y)
+            ctx.fillStyle = colors[currentColorIndex]; // Set the circle's color based on the current index
+            ctx.fill(); // Fill the circle
+        }
+
+        // Function to move the circle to a new random position and change its color
+        function moveCircle(event) {
+            // Get the click position
+            var clickX = event.clientX;
+            var clickY = event.clientY;
+
+            // Check if the click is inside the circle
+            var distance = Math.sqrt((clickX - circleX) ** 2 + (clickY - circleY) ** 2);
+            if (distance < radius) {
+                // Change the circle's color to the next color in the array
+                currentColorIndex = (currentColorIndex + 1) % colors.length; // Cycle through colors
+
+                // Move the circle to a new random position within canvas bounds
+                circleX = Math.random() * (canvas.width - 2 * radius) + radius;
+                circleY = Math.random() * (canvas.height - 2 * radius) + radius;
+
+                // Calculate the time difference in milliseconds since the last click
+                var timeElapsed = Date.now() - startTime;
+
+                // Display the time elapsed in the timer element
+                document.getElementById("timer").innerText = "Time: " + timeElapsed + " ms";
+
+                // Reset the start time for the next click
+                startTime = Date.now();
+
+                // Redraw the circle at the new position and with the new color
+                drawCircle();
+            }
+        }
+
+        // Add event listener for clicks on the canvas
+        canvas.addEventListener("click", moveCircle);
+
+        // Initial setup: set start time and draw the circle
+        startTime = Date.now();
+        drawCircle();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click to Move Circle</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+        canvas {
+            display: block; /* Removes space below canvas */
+        }
+    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Click to Move and Change Color</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden; /* Prevents scrollbars */
+    }
+    canvas {
+        display: block; /* Removes space below canvas */
+    }
+</style>
+
+
+<canvas id="myCanvas"></canvas>
+
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    // Resize the canvas to fill the entire window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var radius = 50; // Circle radius
+    var circleX = Math.random() * (canvas.width - 2 * radius) + radius; // Random starting x position
+    var circleY = Math.random() * (canvas.height - 2 * radius) + radius; // Random starting y position
+
+    // Array of colors to cycle through
+    var colors = ["blue", "red", "yellow", "green", "purple", "orange"];
+    var currentColorIndex = 0; // Start with the first color in the array
+
+    // Function to draw the circle
+    function drawCircle() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        ctx.beginPath();
+        ctx.arc(circleX, circleY, radius, 0, 2 * Math.PI); // Draw circle at position (x, y)
+        ctx.fillStyle = colors[currentColorIndex]; // Set the circle's color based on the current index
+        ctx.fill(); // Fill the circle
+    }
+
+    // Function to move the circle to a new random position and change its color
+    function moveCircle(event) {
+        // Get the click position
+        var clickX = event.clientX;
+        var clickY = event.clientY;
+
+        // Check if the click is inside the circle
+        var distance = Math.sqrt((clickX - circleX) ** 2 + (clickY - circleY) ** 2);
+        if (distance < radius) {
+            // Change the circle's color to the next color in the array
+            currentColorIndex = (currentColorIndex + 1) % colors.length; // Cycle through colors
+
+            // Move the circle to a new random position within canvas bounds
+            circleX = Math.random() * (canvas.width - 2 * radius) + radius;
+            circleY = Math.random() * (canvas.height - 2 * radius) + radius;
+
+            // Redraw the circle at the new position and with the new color
+            drawCircle();
+        }
+    }
+
+    // Add event listener for clicks on the canvas
+    canvas.addEventListener("click", moveCircle);
+
+    // Initial drawing of the circle
+    drawCircle();
+</script>
+</body>
+</html>
