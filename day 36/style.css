@@ -5,3 +5,20 @@
     padding: 20px;
     background-color: lightcoral;
 }
+
+#sqaure{
+    width: 100px;
+    height: 100px;
+    background: red;
+    color: white;
+}
+
+.testing{
+    width: 100px;
+    height: 100px;
+    color: white;
+    background: red;
+    position: relative;
+    left: 50px;
+    top: 50px;
+}
